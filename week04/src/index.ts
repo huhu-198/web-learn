@@ -1,17 +1,10 @@
-import { ITodo, Todo } from './types.js';
-// import  dayjs  from 'dayjs';
+import { ITodo, Todo } from './types';
 
-// let dayjs = require('dayjs');
+// 引入相关资源
 import dayjs from 'dayjs';
 import nanoid from 'uuidjs';
-
-console.log(nanoid.generate());
-
-console.log(dayjs(1666165305 * 1000).format());
-console.log(dayjs().unix());
-console.log(dayjs(1666165305 * 1000).format('YYYY年MM月DD日HH:mm:ss'));
-
-// dayjs().format();
+import './styles/main.css';
+import './styles/iconfont.css';
 
 const section = document.querySelector('section');
 
@@ -52,8 +45,6 @@ function createTodoElem(item: Todo) {
 
 //添加Todo事件，通过第二个参数判断是否为渲染读取的localStorage数据来判断是否要更新存储
 function addItem(item: Todo, isReadLocalStorage = false) {
-	// console.log(item);
-
 	todos.push(item); //更新事件列表
 	section.appendChild(createTodoElem(item)); //更新dom树加上生成的元素
 	if (isReadLocalStorage === false) {
@@ -104,6 +95,7 @@ if (_todos) {
 		addItem(todo, true);
 	}
 }
+
 // 更新全部数据到 localStorage
 function saveLocalStorageData() {
 	localStorage.setItem('_todos', JSON.stringify(todos));
