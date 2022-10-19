@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "ES2016",
+		"lib": ["esnext", "dom"],
+		//"sourceMap": true,
+		// "outDir": "./dist",
+		//"watch": true,
+
+		//导入外部
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node"
+	}
+}
