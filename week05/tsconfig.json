@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "jsx": "react",
+    "target": "es5",
+    "allowJs": true,
+    //导入外部库
+    // "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+  "files": ["src/index.tsx"]
+}
