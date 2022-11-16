@@ -292,5 +292,4 @@ app.use(router.routes()).use(router.allowedMethods());
 // 窗口监听
 app.listen(3501, () => {
 	console.log('=== 3501 端口监听启动');
-	console.log('静态资源已打包，浏览器访问 127.0.0.1:3501 打开页面');
 });
