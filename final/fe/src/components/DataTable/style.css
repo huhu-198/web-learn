@@ -1,0 +1,18 @@
+@import '~antd/dist/antd.css';
+
+.PeosenPhoto {
+	width: 50px;
+	height: 50px;
+}
+
+.opsHoverButtonCantainer {
+	width: 70px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.opsHoverButton {
+	display: block;
+	border: none;
+	/* width: 50px; */
+}

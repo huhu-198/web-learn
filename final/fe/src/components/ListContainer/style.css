@@ -1,0 +1,18 @@
+@import '~antd/dist/antd.css';
+
+.filterButton {
+	margin: 15px 0;
+	padding: 10px 0;
+	flex-direction: row;
+	max-height: 60px;
+}
+
+.searchInput {
+	width: 300px;
+}
+
+.filterButton > button,
+.searchInput {
+	margin: 0 20px 0 0;
+	height: 100%;
+}

@@ -1,0 +1,72 @@
+@import '~antd/dist/antd.css';
+
+.homePageMainLayout {
+	/* 解决了水平滚动条问题，因为垂直滚动条的宽度影响 */
+	min-width: 100%;
+	min-height: 100vh;
+}
+
+.logo {
+	float: left;
+	width: 120px;
+	height: 31px;
+	margin: 16px 24px 16px 0;
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl .logo {
+	float: right;
+	margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+	background: #fff;
+}
+
+/* header 样式 */
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+}
+.headerTitle {
+	color: #fff;
+	display: block;
+}
+
+.userMsg {
+	display: flex;
+	align-items: center;
+}
+.userName {
+	color: #fff;
+	display: block;
+	margin: 0 15px;
+}
+.userImg {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.filterButton {
+	/* width: 400px; */
+	margin: 15px 0;
+	padding: 10px 0;
+	flex-direction: row;
+	max-height: 60px;
+}
+.searchInput {
+	width: 300px;
+}
+.filterButton > button,
+.searchInput {
+	margin: 0 20px 0 0;
+	height: 100%;
+}
+
+.imgLogoutClick {
+	margin-bottom: 0;
+	border: none;
+}
