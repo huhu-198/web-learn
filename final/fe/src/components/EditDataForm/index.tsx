@@ -1,27 +1,13 @@
-import {
-	Form,
-	Input,
-	Modal,
-	Select,
-} from 'antd';
+import { Form, Input, Modal, Select } from 'antd';
 import React from 'react';
+import { DataType } from '../../type';
 
-interface EditDataFormType {
-	id: string;
-	name: string;
-	project: string;
-	grade: string;
-	sex: number;
-	phone: string;
-	email: string;
-	photo: string;
-}
-
+// props接口
 interface CollectionCreateFormProps {
 	open: boolean;
-	onCreate: (values: EditDataFormType) => void;
+	onCreate: (values: DataType) => void;
 	onCancel: () => void;
-	editStuData: any;
+	editStuData: DataType;
 }
 
 const EditDataForm: React.FC<CollectionCreateFormProps> = ({
@@ -31,7 +17,6 @@ const EditDataForm: React.FC<CollectionCreateFormProps> = ({
 	editStuData,
 }) => {
 	const [form] = Form.useForm();
-	console.log('读取数据', editStuData);
 
 	// 使用setFieldsValue每次都更新表单的值
 	form.setFieldsValue({
@@ -45,34 +30,36 @@ const EditDataForm: React.FC<CollectionCreateFormProps> = ({
 		photo: editStuData.photo,
 	});
 
+	// Modal点击确认
+	const ModalOnOk = () => {
+		form
+			.validateFields()
+			.then((values: DataType) => {
+				form.resetFields();
+				onCreate(values);
+			})
+			.catch((info) => {
+				console.log('Validate Failed:', info);
+			});
+	};
+
 	return (
 		<Modal
+			getContainer={false}
 			title="编辑用户"
 			open={open}
 			centered
 			okText="确认"
 			cancelText="取消"
 			onCancel={onCancel}
-			onOk={() => {
-				form
-					.validateFields()
-					.then((values: EditDataFormType) => {
-						form.resetFields();
-						onCreate(values);
-					})
-					.catch((info) => {
-						console.log('Validate Failed:', info);
-					});
-			}}
+			onOk={ModalOnOk}
 			width={700}>
 			<Form
 				form={form}
-				name="EditDataForm"
 				className="EditDataForm"
 				labelCol={{ span: 4 }}
 				wrapperCol={{ span: 14 }}
 				layout="horizontal"
-
 				initialValues={editStuData}
 				size="middle">
 				{/* 隐藏id字段 */}

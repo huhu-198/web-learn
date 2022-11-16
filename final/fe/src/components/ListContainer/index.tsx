@@ -2,16 +2,13 @@ import { Layout, Input, Button, message } from 'antd';
 import DataList from '../DataTable';
 import React, { useState } from 'react';
 import AddDataForm from '../AddDataForm';
+import { addDataFormType, TableParams } from '../../type';
 
 import './style.css';
 import axios from 'axios';
 
 const { Content } = Layout;
 const { Search } = Input;
-
-interface TableParams {
-	pagination: any;
-}
 
 const ListContainer: React.FC = () => {
 	// 信息列表
@@ -47,7 +44,7 @@ const ListContainer: React.FC = () => {
 
 	// 添加人员表单的打开和关闭
 	const [openAddDataBox, setOpenAddDataBox] = useState(false);
-	const onCreate = (values: any) => {
+	const onCreate = (values: addDataFormType) => {
 		console.log('提交的添加人员表单数据为', values);
 		axios
 			.post('/api/stu/create', {
@@ -102,15 +99,12 @@ const ListContainer: React.FC = () => {
 						onSearch={onSearch}
 						className="searchInput input"
 						value={searchString}
-						onChange={(e) => {
-							setSearchString(e.target.value);
-						}}
+						onChange={(e) => setSearchString(e.target.value)}
 					/>
 					<Button className="resetInput" onClick={resetSearch}>
 						重置搜索
 					</Button>
 				</Layout>
-
 				<Content
 					className="site-layout-background"
 					style={{

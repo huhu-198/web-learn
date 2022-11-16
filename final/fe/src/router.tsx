@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import App from './pages/App';
 import DefaultPage from './pages/DefaultPage';
+import AboutPage from './pages/AboutPage';
 
 import Detail from './components/Detail';
 import ListContainer from './components/ListContainer';
@@ -25,6 +26,10 @@ const router = createHashRouter([
 					{
 						path: '/homepage/detail',
 						element: <Detail />,
+					},
+					{
+						path: '/homepage/about',
+						element: <AboutPage />,
 					},
 				],
 			},

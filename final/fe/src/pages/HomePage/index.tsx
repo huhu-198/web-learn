@@ -1,4 +1,4 @@
-import { UserOutlined } from '@ant-design/icons';
+import { SmileOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu, message, Popover } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ const { Header, Sider } = Layout;
 
 const HomePage = () => {
 	const navigate = useNavigate();
+
 	const [isLoginState, setIsLoginState] = useState('用户名');
 	const [userPhoto, setUserPhoto] = useState('');
 
@@ -30,17 +31,13 @@ const HomePage = () => {
 			});
 	};
 
-	const imgLogoutClick = (
-		<Button className="imgLogoutClick" onClick={handleLogout}>
-			退出登录
-		</Button>
-	);
 	useEffect(() => {
 		if (!isLoginState) {
 			navigate('/login');
 			console.log('当前未登录，跳转到登录页');
 			console.log(isLoginState);
 		}
+		// eslint-disable-next-line
 	}, [isLoginState]);
 
 	useEffect(() => {
@@ -64,16 +61,23 @@ const HomePage = () => {
 				console.log('错误' + err);
 			});
 	}, []);
+
+	const imgLogoutClick = (
+		<Button className="imgLogoutClick" onClick={handleLogout}>
+			退出登录
+		</Button>
+	);
+
 	return (
 		<Layout className="homePageMainLayout">
 			<Header className="header">
 				<Link to="/homepage">
-					<h1 className="headerTitle">人物管理系统</h1>
+					<h1 className="headerTitle">人员管理系统</h1>
 				</Link>
 				<div className="userMsg">
 					<div className="userName">{isLoginState}</div>
 					<Popover content={imgLogoutClick} trigger="click">
-						<img src={userPhoto} className="userImg" />
+						<img src={userPhoto} className="userImg" alt="user" />
 					</Popover>
 				</div>
 			</Header>
@@ -82,12 +86,19 @@ const HomePage = () => {
 					<Menu
 						theme="dark"
 						mode="inline"
-						defaultSelectedKeys={['1']}
-						items={[UserOutlined].map((icon, index) => ({
-							key: String(index + 1),
-							icon: React.createElement(icon),
-							label: `人物管理`,
-						}))}
+						defaultSelectedKeys={['/homepage']}
+						items={[
+							{
+								key: '/homepage',
+								icon: React.createElement(UserOutlined),
+								label: <Link to="/homepage">人员管理</Link>,
+							},
+							{
+								key: '/homepage/about',
+								icon: React.createElement(SmileOutlined),
+								label: <Link to="/homepage/about">关于</Link>,
+							},
+						]}
 					/>
 				</Sider>
 				<Outlet />

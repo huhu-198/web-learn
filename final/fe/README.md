@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+## 前端部分 - 胡欢
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+前端部分使用 React、Typescript 和 antd，使用了router路由、axios 请求、react hooks等技术
 
-## Available Scripts
+**功能亮点**
 
-In the project directory, you can run:
+* 本来在各文件中定义了 interface 接口，总体较混乱，最终整理出通用接口文件 type.tsx，对组件之间的 props 等值进行规范，提高程序的扩展性和健壮性
+* 对各模块进行拆分，实现在添加人员、删除人员、修改人员信息时动态渲染人员列表，提高了程序运行效率
+* 在首页等页面会通过向后端发送带有 session 的请求验证登录状态，若 session 中没有加密的用户名，则判断为未登录，拦截并跳转至登录页； 登录页同样通过发送请求验证登录信息，若已登录则自动跳转至首页
+* 对边际情况进行了处理，如删除最后一页所有人员后该页无信息，此时需要更新页码数据，重新请求并自动跳转到上一页（新的最后一页），并更新页码；在第二页搜索特定名字后，搜索结果列表展示，需要更新目前所在的页码，跳转到第一页
+* 对用户输入进行了限制，如需要用户填写所有必选项后方可提交表单
+* 采用 router 路由实现不同路径下的组件渲染，并根据登录状态，采用 usenavigate 重定向实现拦截
+* 预先开发中对于登录状态、请求列表数据、页码状态等数据使用 context 全局管理，最后整体较混乱，学习相关 demo 后，重新规划数据结构，对父子组件中的公用数据采用数据提升，将页码、请求列表等数据保存在上层并通过 useState 管理，通过 props 向下传递，最终结果清晰了很多
+* 开发过程中使用 prettier 插件检查规范，和 eslint 冲突的问题始终无法解决，所以最后没有解决全部 eslint 插件的警告，只解决了终端运行中提示 eslint 的全部 error 和 warning，对许多规范有了更深入的了解，如 img 标签的 alt 属性、useEffect 使用中对依赖数据的规范等
 
-### `npm start`
+**尚可完善的方面**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+由于时间和熟练度关系，项目还有不少尚可完善的方面
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* api 接口封装处理，可以将前端使用的 api 请求和地址都统一配置到一个 api.tsx 文件中，方便修改和扩展
+* 可以将模块拆分地更细，如 search 等模块单独拆出，使项目更清晰
+* 编辑和创建人员表单较为相似，代码重合度高，可以封装成同一个可复用的组件
+* 部分浏览器中运行的 warning 仍未解决，如 `Instance created by useForm is not connected to any Form element`  ，根据 stackoverflow 信息加上 getContainer={false} 后仍无法解决
+* 头像地址在后端采用固定数据，头像文件存储在 public 文件夹中，后续可以学习将图像通过网络地址存储（https://www.npmjs.com/package/@faker-js/faker）
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+这次项目难度相对前几次提升了很多，在挤了较多的时间来学习 react 的知识，最后终于成功完成了。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+最大的感悟是，能写出结构清晰、规范的代码才是最难的，起初较早就实现要求的功能，但结构很混乱，通过了context和很多接口为 any 才能跑通，最后重新规划了数据接口，规划接口，修改了代码，也学会了去官网和 stackoverflow 等更专业的网站找解决方案，收获非常大，大大加深了对 react 的理解。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+（也感谢老师们的授课答疑、提供的ppt 和 demo~ 从wps的前端课学会了非常多！）
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**前端项目单独调试流程：**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+打开 fe 文件夹
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`npm i`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`npm run start`
 
-## Learn More
+浏览器打开 http://localhost:3000/ 访问页面
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+数据加载需要运行后端程序，详见 server 中流程
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+ **测试账号：**
+
+用户名：huhuan
+
+密码： 1234

@@ -1,22 +1,15 @@
 import { Form, Input, Modal, Select } from 'antd';
 import React from 'react';
+import { addDataFormType } from '../../type';
 
-interface addDataFormType {
-	name: string;
-	project: string;
-	grade: string;
-	sex: string;
-	phone: string;
-	email: string;
-	photo: string;
-}
-
+// props接口
 interface CollectionCreateFormProps {
 	open: boolean;
 	onCreate: (values: addDataFormType) => void;
 	onCancel: () => void;
 }
 
+// 添加人员信息表单
 const AddDataForm: React.FC<CollectionCreateFormProps> = ({
 	open,
 	onCreate,
@@ -24,29 +17,32 @@ const AddDataForm: React.FC<CollectionCreateFormProps> = ({
 }) => {
 	const [form] = Form.useForm();
 
+	// Modal点击确认
+	const ModalOnOk = () => {
+		form
+			.validateFields()
+			.then((values: addDataFormType) => {
+				form.resetFields();
+				onCreate(values);
+			})
+			.catch((info) => {
+				console.log('Validate Failed:', info);
+			});
+	};
+
 	return (
 		<Modal
+			getContainer={false}
 			title="添加用户"
 			open={open}
 			centered
 			okText="确认"
 			cancelText="取消"
 			onCancel={onCancel}
-			onOk={() => {
-				form
-					.validateFields()
-					.then((values) => {
-						form.resetFields();
-						onCreate(values);
-					})
-					.catch((info) => {
-						console.log('Validate Failed:', info);
-					});
-			}}
+			onOk={ModalOnOk}
 			width={700}>
 			<Form
 				form={form}
-				name="addDataForm"
 				className="addDataForm"
 				labelCol={{ span: 4 }}
 				wrapperCol={{ span: 14 }}

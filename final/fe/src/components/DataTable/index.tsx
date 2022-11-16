@@ -1,29 +1,25 @@
-import { Button, message, Modal, Popover, Table, Tag } from 'antd';
+import {
+	Button,
+	message,
+	Modal,
+	Popover,
+	Table,
+	TablePaginationConfig,
+	Tag,
+} from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ExclamationCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import EditDataForm from '../EditDataForm';
 import './style.css';
+import { DataType, TableParams } from '../../type';
 
 const { confirm } = Modal;
 
-interface DataType {
-	id: React.Key;
-	photo: string;
-	name: string;
-	project: string;
-	grade: string;
-	sex: number;
-	phone: string;
-	email: string;
-}
-
-interface TableParams {
-	pagination: any;
-}
+// 页码信息接口
 
 const DataTable = (props: {
 	stuListData: any;
@@ -41,7 +37,7 @@ const DataTable = (props: {
 			dataIndex: 'photo',
 			key: 'photo',
 			render: (photoSrc) => {
-				return <img src={photoSrc} className="PeosenPhoto" />;
+				return <img src={photoSrc} className="PeosenPhoto" alt="student" />;
 			},
 		},
 		{
@@ -64,7 +60,7 @@ const DataTable = (props: {
 			key: 'sex',
 			dataIndex: 'sex',
 			render: (_, { sex }) => {
-				if (sex == 0) {
+				if (Number(sex) === 0) {
 					return <Tag color="geekblue">男</Tag>;
 				}
 				return <Tag color="green">女</Tag>;
@@ -100,7 +96,7 @@ const DataTable = (props: {
 	];
 
 	// 改变表格
-	const handleTableChange = (pagination: any) => {
+	const handleTableChange = (pagination: TablePaginationConfig) => {
 		props.setTableParams({
 			pagination,
 		});
@@ -200,11 +196,21 @@ const DataTable = (props: {
 			.catch((err) => {
 				console.log('错误' + err);
 			});
+		// eslint-disable-next-line
 	}, [props.tableParams, props.tableOps]);
 
 	// 编辑人员信息表单的打开和关闭
 	const [openEditDataBox, setOpenEditDataBox] = useState(false);
-	const [editStuData, setEditStuData] = useState({});
+	const [editStuData, setEditStuData] = useState<DataType>({
+		id: '1',
+		photo: '',
+		name: '',
+		project: '',
+		grade: '',
+		sex: 0,
+		phone: '',
+		email: '',
+	});
 
 	const onCreate = (values: DataType) => {
 		// 表单中因为没有id，可能丢失传入的key，需要在表单中添加id项并隐藏
@@ -241,6 +247,7 @@ const DataTable = (props: {
 				dataSource={props.stuListData.list}
 				pagination={{
 					showSizeChanger: false,
+					current: props.tableParams.pagination.current,
 					defaultCurrent: 1,
 					defaultPageSize: 5,
 					total: props.stuListData.total,

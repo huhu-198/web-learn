@@ -43,13 +43,13 @@ const createStuList = (totalNum) => {
 			// id: i,
 			id: uuidv4(),
 			photo: '/stuphoto.png',
-			name: `Edrward ${i}`,
+			name: `用户 ${i}`,
 			project: '计算机',
-			grade: '2020级',
+			grade: `202${i % 2}级`,
 			// 男生0，女生1
 			sex: i % 2,
-			phone: '1999999',
-			email: '19999999@qq.com',
+			phone: `1999999${i}${i}`,
+			email: `1999${i}${i}99@qq.com`,
 		});
 	}
 };
@@ -101,7 +101,7 @@ async function getUserList(ctx) {
 	let searchStuDataList = [...stuDataList];
 	let searchStuDataPageList = sliceArr(searchStuDataList, 5);
 
-	// 如果搜索结果不为空
+	// 如果搜索的内容不为空
 	if (searchString.length > 0) {
 		searchStuDataList = stuDataList.filter(
 			(item) => item.name.search(searchString) !== -1
@@ -110,7 +110,11 @@ async function getUserList(ctx) {
 	}
 
 	// 异常数据检测
-	if (page > 0 && page <= searchStuDataPageList.length) {
+	if (
+		(page > 0 && page <= searchStuDataPageList.length) ||
+		searchStuDataPageList.length === 0
+	) {
+		// 若page正常，或搜索得到的结果为空，正常返回数据
 		ctx.body = {
 			code: 0,
 			total: searchStuDataList.length,

@@ -8,6 +8,7 @@ const DefaultPage = () => {
 	useEffect(() => {
 		navigate('/homepage');
 		console.log('跳转到首页');
+		// eslint-disable-next-line
 	}, []);
 
 	return <></>;

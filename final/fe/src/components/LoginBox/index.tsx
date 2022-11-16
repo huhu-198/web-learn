@@ -1,16 +1,22 @@
 import { Button, Form, Input, message } from 'antd';
 import axios from 'axios';
+import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './index.css';
+import './style.css';
 
 const LoginBox: React.FC = () => {
 	const navigate = useNavigate();
-	const onFinishFailed = (errorInfo: any) => {
+
+	// 提交失败的异常情况
+	const onFinishFailed = (
+		errorInfo: ValidateErrorEntity<{ username: string; password: string }>
+	) => {
 		console.log('Failed:', errorInfo);
-		message.error('账号不存在或密码错误');
+		message.error('登录失败');
 	};
+	// 登录状态
 	const [isLoginState, setIsLoginState] = useState('');
 	useEffect(() => {
 		if (isLoginState) {
@@ -19,8 +25,10 @@ const LoginBox: React.FC = () => {
 			message.success('登录成功，跳转至主页');
 			console.log(isLoginState);
 		}
+		// eslint-disable-next-line
 	}, [isLoginState]);
 
+	// 首次渲染时检查登录状态
 	useEffect(() => {
 		axios
 			.get('/api/user/info')
@@ -36,6 +44,7 @@ const LoginBox: React.FC = () => {
 			});
 	}, []);
 
+	// 提交登录表单
 	const onFinish = (values: { username: string; password: string }) => {
 		axios
 			.post('/api/user/login', {

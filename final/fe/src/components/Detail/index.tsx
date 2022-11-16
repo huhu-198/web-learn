@@ -2,7 +2,7 @@ import { Breadcrumb, Layout } from 'antd';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import './index.css';
+import './style.css';
 
 const { Content } = Layout;
 
@@ -21,7 +21,11 @@ const Detail: React.FC = () => {
 			<div className="site-layout-content">
 				<div className="detailDataItem">
 					<span>头像: </span>
-					<img src={parmasData.photo} className="detailPeosenPhoto" />
+					<img
+						src={parmasData.photo}
+						className="detailPeosenPhoto"
+						alt="detail"
+					/>
 				</div>
 				<div className="detailDataItem">
 					<span>姓名: </span>
