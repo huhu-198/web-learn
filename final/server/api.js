@@ -292,4 +292,5 @@ app.use(router.routes()).use(router.allowedMethods());
 // 窗口监听
 app.listen(3501, () => {
 	console.log('=== 3501 端口监听启动');
+	console.log('浏览器打开 127.0.0.1:3501 访问页面');
 });
