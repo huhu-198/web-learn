@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './style.css';
 import axios from 'axios';
+import { postLogout } from '../../api';
 
 const { Header, Sider } = Layout;
 
@@ -16,9 +17,8 @@ const HomePage = () => {
 	const [userPhoto, setUserPhoto] = useState('');
 
 	const handleLogout = () => {
-		axios
-			.post('/api/user/logout')
-			.then((res) => {
+		postLogout()
+			.then((res: any) => {
 				console.log(res.data);
 				if (res.data.code === 0) {
 					console.log('退出登录成功');
@@ -26,7 +26,7 @@ const HomePage = () => {
 					setUserPhoto('');
 				}
 			})
-			.catch((err) => {
+			.catch((err: any) => {
 				console.log('错误' + err);
 			});
 	};
